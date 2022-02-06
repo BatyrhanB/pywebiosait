@@ -13,7 +13,7 @@ MAX_MESSAGES_COUNT = 100
 async def main():
     global chat_msgs
 
-    put_markdown("(: Добро пожаловать во онлайн чат! ") 
+    put_markdown("(: Добро пожаловать в онлайн чат! ") 
     
     msg_box = output()
     put_scrollable(msg_box, height=300, keep_bottom=True)
@@ -21,8 +21,8 @@ async def main():
     nickname = await input("Войти в чат", required=True, placeholder="Ваш ник", validate=lambda n: "Такой ник уже используется!" if n in online_users or n == 'sdgerg' else None)
     online_users.add(nickname)
 
-    chat_msgs.append(("Гей", f"'{nickname} присоединился'"))
-    msg_box.append(put_markdown(("Гей",f"'{nickname} присоединился к чату'")))
+    chat_msgs.append((f"'{nickname} присоединился'"))
+    msg_box.append(put_markdown((f"'{nickname} присоединился к чату'")))
 
     refresh_task = run_async(refresh_msg(nickname, msg_box))
 
@@ -43,10 +43,10 @@ async def main():
     refresh_task.close()
 
     online_users.remove(nickname)
-    toast("TЫ ЧЕРТ!")
-    msg_box.append(put_markdown(f"ЧЕРТ '{nickname}' покинул чат!"))
+    toast("TЫ покинул чат!")
+    msg_box.append(put_markdown(f"'{nickname}' покинул чат!"))
 
-    put_buttons(["Перезайти"], onclick=lambda btn: run_js('window.location.reload('))
+    put_buttons(['Перезайти'], onclick=lambda btn:run_js('window.location.reload()'))
 
 
 
@@ -66,6 +66,8 @@ async def refresh_msg(nickname, msg_box):
             chat_msgs = chat_msgs[len(chat_msgs) // 2:]
 
         last_idx = len(chat_msgs)
+
+
 
 
 
